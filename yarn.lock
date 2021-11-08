@@ -1101,7 +1101,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.0", "@babel/runtime@^7.14.6", "@babel/runtime@^7.14.8", "@babel/runtime@^7.16.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.5", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.14.0", "@babel/runtime@^7.14.6", "@babel/runtime@^7.14.8", "@babel/runtime@^7.16.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.0", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.0.tgz#e27b977f2e2088ba24748bf99b5e1dece64e4f0b"
   integrity sha512-Nht8L0O8YCktmsDV6FqFue7vQLRx3Hb0B37lS5y0jDRqRxlBG4wIJHnf9/bgSE2UyipKFA01YtS+npRdTWBUyw==
@@ -1207,7 +1207,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
   integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
 
-"@emotion/is-prop-valid@0.8.8", "@emotion/is-prop-valid@^0.8.6", "@emotion/is-prop-valid@^0.8.8":
+"@emotion/is-prop-valid@0.8.8", "@emotion/is-prop-valid@^0.8.6", "@emotion/is-prop-valid@^0.8.7", "@emotion/is-prop-valid@^0.8.8":
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.8.8.tgz#db28b1c4368a259b60a97311d6a952d4fd01ac1a"
   integrity sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==
@@ -2542,6 +2542,22 @@
     regenerator-runtime "^0.13.7"
     resolve-from "^5.0.0"
     store2 "^2.12.0"
+
+"@styled-icons/material-outlined@^10.34.0":
+  version "10.34.0"
+  resolved "https://registry.yarnpkg.com/@styled-icons/material-outlined/-/material-outlined-10.34.0.tgz#5da422bc14dbc0ad0b4e7e15153056866f42f37b"
+  integrity sha512-scn3Ih15t82rUJPI9vwnZaYL6ZiDhlYoashIJAs8c8QjJfK0rWdt+hr3E6/0wixx67BkLB3j96Jn9y+qXfVVIQ==
+  dependencies:
+    "@babel/runtime" "^7.14.0"
+    "@styled-icons/styled-icon" "^10.6.3"
+
+"@styled-icons/styled-icon@^10.6.3":
+  version "10.6.3"
+  resolved "https://registry.yarnpkg.com/@styled-icons/styled-icon/-/styled-icon-10.6.3.tgz#eae0e5e18fd601ac47e821bb9c2e099810e86403"
+  integrity sha512-/A95L3peioLoWFiy+/eKRhoQ9r/oRrN/qzbSX4hXU1nGP2rUXcX3LWUhoBNAOp9Rw38ucc/4ralY427UUNtcGQ==
+  dependencies:
+    "@babel/runtime" "^7.10.5"
+    "@emotion/is-prop-valid" "^0.8.7"
 
 "@surma/rollup-plugin-off-main-thread@^1.4.1":
   version "1.4.2"
@@ -11929,13 +11945,6 @@ store2@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.12.0.tgz#e1f1b7e1a59b6083b2596a8d067f6ee88fd4d3cf"
   integrity sha512-7t+/wpKLanLzSnQPX8WAcuLCCeuSHoWdQuh9SB3xD0kNOM38DNf+0Oa+wmvxmYueRzkmh6IcdKFtvTa+ecgPDw==
-
-storybook-addon-next-router@^3.0.8:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/storybook-addon-next-router/-/storybook-addon-next-router-3.0.8.tgz#6bed3eba168bbba238b2f3c636db64d41d148edc"
-  integrity sha512-6sxy67iQUMKME7hf+5PQ8WYS6G9i+fB0U2NrthLYutux7zJYvuL+ve34a0D/mw+UCM+YVV48tEFzidZUC9OVVg==
-  dependencies:
-    tslib "^2.3.0"
 
 storybook-addon-outline@^1.4.1:
   version "1.4.1"

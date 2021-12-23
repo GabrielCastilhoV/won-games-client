@@ -1,7 +1,27 @@
-import { NextPage } from 'next'
+import bannersMock from 'components/BannerSlider/mock'
+import gamesMock from 'components/GameCardSlider/mock'
+import highlightMock from 'components/Highlight/mock'
 
-const Home: NextPage = () => {
-  return <>Won games </>
+import HomeLayout, { HomeLayoutProps } from 'layouts/Home'
+
+const Home = (props: HomeLayoutProps) => {
+  return <HomeLayout {...props} />
+}
+
+export function getStaticProps() {
+  return {
+    props: {
+      banners: bannersMock,
+      newGames: gamesMock,
+      mostPopularHighlight: highlightMock,
+      mostPopularGames: gamesMock,
+      upcommingGames: gamesMock,
+      upcommingHighlight: highlightMock,
+      upcommingMoreGames: gamesMock,
+      freeGames: gamesMock,
+      freeHighlight: highlightMock
+    }
+  }
 }
 
 export default Home

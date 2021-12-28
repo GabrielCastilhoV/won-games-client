@@ -8,19 +8,19 @@ export type BaseLayoutProps = {
 }
 
 const Base = ({ children }: BaseLayoutProps) => (
-  <section>
+  <S.Wrapper>
     <Container>
       <Menu />
     </Container>
 
-    {children}
+    <S.Content>{children}</S.Content>
 
     <S.SectionFooter>
       <Container>
         <Footer />
       </Container>
     </S.SectionFooter>
-  </section>
+  </S.Wrapper>
 )
 
 export default Base

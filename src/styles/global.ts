@@ -19,7 +19,7 @@ const GlobalStyles: GlobalStyleComponent<
     font-weight: 300;
     font-display: swap;
     src: local('Poppins Light'), local('Poppins-Light'),
-        url('/fonts/poppins-v12-latin-300.woff2') format('woff2');
+        url('/assets/fonts/poppins-v12-latin-300.woff2') format('woff2');
   }
 
   @font-face {
@@ -28,7 +28,7 @@ const GlobalStyles: GlobalStyleComponent<
     font-weight: 400;
     font-display: swap;
     src: local('Poppins Regular'), local('Poppins-Regular'),
-        url('/fonts/poppins-v12-latin-regular.woff2') format('woff2');
+        url('/assets/fonts/poppins-v12-latin-regular.woff2') format('woff2');
   }
 
   @font-face {
@@ -37,7 +37,7 @@ const GlobalStyles: GlobalStyleComponent<
     font-weight: 600;
     font-display: swap;
     src: local('Poppins SemiBold'), local('Poppins-SemiBold'),
-        url('/fonts/poppins-v12-latin-600.woff2') format('woff2');
+        url('/assets/fonts/poppins-v12-latin-600.woff2') format('woff2');
   }
 
   * {

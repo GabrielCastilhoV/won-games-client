@@ -5,7 +5,10 @@ import GameInfo, { GameInfoProps } from 'components/GameInfo'
 import { HighlightProps } from 'components/Highlight'
 import Showcase from 'components/Showcase'
 import TextContent from 'components/TextContent'
+import { Divider } from 'components/Divider'
+
 import Base from 'layouts/Base'
+
 import * as S from './styles'
 
 export type GameLayoutProps = {
@@ -46,6 +49,8 @@ const GameLayout = ({
 
       <S.SectionGameDetails>
         <GameDetails {...details} />
+
+        <Divider />
       </S.SectionGameDetails>
 
       <Showcase

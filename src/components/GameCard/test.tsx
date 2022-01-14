@@ -5,9 +5,10 @@ import GameCard from '.'
 
 const props = {
   title: 'Population Zero',
+  slug: 'population-zero',
   developer: 'Rockstar Games',
   img: 'https://source.unsplash.com/user/willianjusten/300x140',
-  price: 'R$ 235,00'
+  price: 235
 }
 
 describe('<GameCard />', () => {
@@ -26,33 +27,33 @@ describe('<GameCard />', () => {
       screen.getByRole('img', { name: /Population Zero/i })
     ).toHaveAttribute('src', props.img)
 
-    expect(
-      screen.getByRole('heading', { name: 'R$ 235,00' })
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '$235.00' })).toBeInTheDocument()
+
+    expect(screen.getByRole('link', { name: props.title })).toHaveAttribute(
+      'href',
+      `/game/${props.slug}`
+    )
   })
 
   it('should render price in label', () => {
     renderWithTheme(<GameCard {...props} />)
 
-    expect(screen.getByRole('heading', { name: props.price })).not.toHaveStyle(
-      'text-decoration: line-through'
-    )
+    const price = screen.getByText('$235.00')
 
-    expect(screen.getByRole('heading', { name: props.price })).toHaveStyle(
-      'background-color: #3CD3C1'
-    )
+    expect(price).not.toHaveStyle({ textDecoration: 'line-through' })
+    expect(price).toHaveStyle({ backgroundColor: '#3CD3C1' })
   })
 
   it('should render a line-thorugh in price when promotional', () => {
-    renderWithTheme(<GameCard {...props} promotionalPrice="R$ 15,00" />)
+    renderWithTheme(<GameCard {...props} promotionalPrice={15} />)
 
-    expect(screen.getByRole('heading', { name: props.price })).toHaveStyle(
-      'text-decoration: line-through'
-    )
+    expect(screen.getByText('$235.00')).toHaveStyle({
+      textDecoration: 'line-through'
+    })
 
-    expect(screen.getByRole('heading', { name: 'R$ 15,00' })).not.toHaveStyle(
-      'text-decoration: line-through'
-    )
+    expect(screen.getByText('$15.00')).not.toHaveStyle({
+      textDecoration: 'line-through'
+    })
   })
 
   it('should render a filled Favorite icon when favorite is true', () => {

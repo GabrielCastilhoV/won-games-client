@@ -1,60 +1,104 @@
+import { GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+
 import GameLayout, { GameLayoutProps } from 'layouts/Game'
 
-import galleryMock from 'components/Gallery/mock'
-import gamesMock from 'components/GameCardSlider/mock'
-import highlightMock from 'components/Highlight/mock'
+import { initializeApollo } from 'utils/apollo'
+import { GetGames, GetGamesVariables } from 'graphql/generated/GetGames'
+import { GET_GAMES, GET_GAME_BY_SLUG } from 'graphql/queries/games'
+import {
+  GetGameBySlug,
+  GetGameBySlugVariables
+} from 'graphql/generated/GetGameBySlug'
+
+import { GetRecommended } from 'graphql/generated/GetRecommended'
+import { GET_RECOMMENDED } from 'graphql/queries/recommended'
+import { gamesMapper, highlightMapper } from 'utils/mappers'
+
+import {
+  GetUpcoming,
+  GetUpcomingVariables
+} from 'graphql/generated/GetUpcoming'
+import { GET_UPCOMING } from 'graphql/queries/upcoming'
+
+const apolloClient = initializeApollo()
 
 export default function Game(props: GameLayoutProps) {
+  const router = useRouter()
+
+  if (router.isFallback) return null
+
   return <GameLayout {...props} />
 }
 
 export async function getStaticPaths() {
-  return {
-    paths: [{ params: { slug: 'cyberphunk-2077' } }],
-    fallback: false
-  }
+  const { data } = await apolloClient.query<GetGames, GetGamesVariables>({
+    query: GET_GAMES,
+    variables: { limit: 9 }
+  })
+
+  const paths = data.games.map(({ slug }) => ({
+    params: { slug }
+  }))
+
+  return { paths, fallback: true }
 }
 
-export async function getStaticProps() {
-  const descriptionHTML = `
-    <img src="https://items.gog.com/not_a_cp/ENG_product-page-addons-2020_yellow_on_black.png"><br>
-    * Exclusive Digital Comic - Cyberpunk 2077: Big City Dreams will be available in English only.
-    <hr><p class="module">Korean Voiceover will be added on 11th December 2020.</p><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-About-the-Game.png"><br><br><b>Cyberpunk 2077</b> is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality. You can customize your character’s cyberware, skillset and playstyle, and explore a vast city where the choices you make shape the story and the world around you.
-    <br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-Mercenary-Outlaw.png"><br><br>
-    Become a cyberpunk, an urban mercenary equipped with cybernetic enhancements and build your legend on the streets of Night City.
-    <br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-City-of-the-Future.png"><br><br>
-    Enter the massive open world of Night City, a place that sets new standards in terms of visuals, complexity and depth.
-    <br><br><img alt="" src="https://items.gog.com/not_a_cp/EN/EN-Eternal-Life.png"><br><br>
-    Take the riskiest job of your life and go after a prototype implant that is the key to immortality.
-    <p class="description__copyrights">
-    CD PROJEKT®, Cyberpunk®, Cyberpunk 2077® are registered trademarks of CD PROJEKT S.A. © 2019
-    CD PROJEKT S.A. All rights reserved. All other copyrights and trademarks are the property of their
-    respective owners.
-  </p>`
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { data } = await apolloClient.query<
+    GetGameBySlug,
+    GetGameBySlugVariables
+  >({
+    query: GET_GAME_BY_SLUG,
+    variables: { slug: `${params?.slug}` }
+  })
+
+  if (!data.games.length) {
+    return { notFound: true }
+  }
+
+  const game = data.games[0]
+
+  const { data: recommended } = await apolloClient.query<GetRecommended>({
+    query: GET_RECOMMENDED
+  })
+
+  const TODAY = new Date().toISOString().slice(0, 10)
+
+  const { data: upcoming } = await apolloClient.query<
+    GetUpcoming,
+    GetUpcomingVariables
+  >({ query: GET_UPCOMING, variables: { date: TODAY } })
 
   return {
     props: {
-      cover:
-        'https://images.gog-statics.com/5643a7c831df452d29005caeca24c28cdbfaa6fbea5a9556b147ee26d325fa70_bg_crop_1366x655.jpg',
+      revalidate: 60,
+      cover: `http://localhost:1337${game.cover?.src}`,
       gameInfo: {
-        title: 'Cyberpunk 2077',
-        price: '59.00',
-        description:
-          'Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality'
+        title: game.name,
+        price: game.price,
+        description: game.short_description
       },
-      gallery: galleryMock,
-      description: descriptionHTML,
+      gallery: game.gallery.map((image) => ({
+        src: `http://localhost:1337${image.src}`,
+        label: image.label
+      })),
+      description: game.description,
       details: {
-        developer: 'CD PROJEKT RED',
-        releaseDate: '2020-12-10T23:00:00',
-        platforms: ['windows'],
-        publisher: 'CD PROJEKT RED',
-        rating: 'BR18',
-        genres: ['Action', 'Role-playing']
+        developer: game.developers[0].name,
+        releaseDate: game.release_date,
+        platforms: game.platforms.map((platform) => platform.name),
+        publisher: game.publisher?.name,
+        rating: game.rating,
+        genres: game.categories.map((category) => category.name)
       },
-      upcomingGames: gamesMock,
-      upcomingHighlight: highlightMock,
-      recommendedGames: gamesMock
+      upcomingTitle: upcoming.showcase?.upcomingGames?.title,
+      upcomingGames: gamesMapper(upcoming.upcomingGames),
+      upcomingHighlight: highlightMapper(
+        upcoming.showcase?.upcomingGames?.highlight
+      ),
+      recommendedTitle: recommended.recommended?.section?.title,
+      recommendedGames: gamesMapper(recommended.recommended?.section?.games)
     }
   }
 }

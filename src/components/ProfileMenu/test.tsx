@@ -1,6 +1,4 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
-
+import { render, screen } from 'utils/test-utils'
 import theme from 'styles/theme'
 
 import ProfileMenu from '.'
@@ -14,7 +12,7 @@ useRouter.mockImplementation(() => ({
 
 describe('<ProfileMenu />', () => {
   it('should render the menu', () => {
-    renderWithTheme(<ProfileMenu />)
+    render(<ProfileMenu />)
 
     expect(screen.getByRole('link', { name: /My profile/i })).toHaveAttribute(
       'href',
@@ -38,7 +36,7 @@ describe('<ProfileMenu />', () => {
   })
 
   it('should render the menu with an active link defined', () => {
-    renderWithTheme(<ProfileMenu activeLink="/profile/cards" />)
+    render(<ProfileMenu activeLink="/profile/cards" />)
 
     expect(screen.getByRole('link', { name: /my cards/i })).toHaveStyle({
       background: theme.colors.primary,

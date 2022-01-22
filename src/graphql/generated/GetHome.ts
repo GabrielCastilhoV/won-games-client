@@ -48,6 +48,7 @@ export interface GetHome_newGames_developers {
 
 export interface GetHome_newGames {
   __typename: "Game";
+  id: string;
   name: string;
   slug: string;
   cover: GetHome_newGames_cover | null;
@@ -67,6 +68,7 @@ export interface GetHome_upcomingGames_developers {
 
 export interface GetHome_upcomingGames {
   __typename: "Game";
+  id: string;
   name: string;
   slug: string;
   cover: GetHome_upcomingGames_cover | null;
@@ -86,6 +88,7 @@ export interface GetHome_freeGames_developers {
 
 export interface GetHome_freeGames {
   __typename: "Game";
+  id: string;
   name: string;
   slug: string;
   cover: GetHome_freeGames_cover | null;
@@ -153,6 +156,7 @@ export interface GetHome_sections_popularGames_games_developers {
 
 export interface GetHome_sections_popularGames_games {
   __typename: "Game";
+  id: string;
   name: string;
   slug: string;
   cover: GetHome_sections_popularGames_games_cover | null;

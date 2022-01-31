@@ -1,25 +1,37 @@
-import { AppProps } from 'next/app'
+import NextNprogress from 'nextjs-progressbar'
 
+import { Provider as AuthProvider } from 'next-auth/client'
+import { CartProvider } from 'hooks/use-cart'
+import { ApolloProvider } from '@apollo/client'
+import { ThemeProvider } from 'styled-components'
+
+import { AppProps } from 'next/app'
 import { useApollo } from 'utils/apollo'
 
-import { ThemeProvider } from 'styled-components'
 import GlobalStyles from 'styles/global'
 import theme from '../styles/theme'
-import { ApolloProvider } from '@apollo/client'
-import { CartProvider } from 'hooks/use-cart'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const client = useApollo(pageProps.initialApolloState)
 
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </CartProvider>
-      </ThemeProvider>
-    </ApolloProvider>
+    <AuthProvider session={pageProps.session}>
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <CartProvider>
+            <GlobalStyles />
+            <NextNprogress
+              color="#F231A5"
+              startPosition={0.3}
+              stopDelayMs={200}
+              height={5}
+            />
+
+            <Component {...pageProps} />
+          </CartProvider>
+        </ThemeProvider>
+      </ApolloProvider>
+    </AuthProvider>
   )
 }
 

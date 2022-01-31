@@ -29,10 +29,9 @@ describe('<ProfileMenu />', () => {
       '/profile/orders'
     )
 
-    expect(screen.getByRole('link', { name: /Sign out/i })).toHaveAttribute(
-      'href',
-      '/logout'
-    )
+    expect(
+      screen.getByRole('button', { name: /Sign out/i })
+    ).toBeInTheDocument()
   })
 
   it('should render the menu with an active link defined', () => {

@@ -14,11 +14,11 @@ import { Grid } from 'components/Grid'
 import * as S from './styles'
 import Empty from 'components/Empty'
 
-export type GamesTemplateProps = {
+export type GamesLayoutProps = {
   filterItems: ItemProps[]
 }
 
-const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
+const GamesLayouts = ({ filterItems }: GamesLayoutProps) => {
   const { push, query } = useRouter()
 
   const { data, loading, fetchMore } = useQueryGames({
@@ -67,6 +67,7 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
                 {data?.games.map((game) => (
                   <GameCard
                     key={game.slug}
+                    id={game.id}
                     title={game.name}
                     slug={game.slug}
                     developer={game.developers[0].name}
@@ -104,4 +105,4 @@ const GamesTemplate = ({ filterItems }: GamesTemplateProps) => {
   )
 }
 
-export default GamesTemplate
+export default GamesLayouts

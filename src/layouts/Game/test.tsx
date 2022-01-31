@@ -21,6 +21,13 @@ const props: GameLayoutProps = {
   recommendedGames: gamesMock
 }
 
+jest.mock('layouts/Base', () => ({
+  __esModule: true,
+  default: function Mock({ children }: { children: React.ReactNode }) {
+    return <div data-testid="Mock Base">{children}</div>
+  }
+}))
+
 jest.mock('components/Menu', () => ({
   __esModule: true,
   default: function Mock() {
@@ -63,7 +70,6 @@ describe('<Game />', () => {
     expect(screen.getByTestId('Mock Gallery')).toBeInTheDocument()
     expect(screen.getByTestId('Mock GameDetails')).toBeInTheDocument()
     expect(screen.getByTestId('Mock GameInfo')).toBeInTheDocument()
-    expect(screen.getByTestId('Mock Menu')).toBeInTheDocument()
     expect(screen.getAllByTestId('Mock Showcase')).toHaveLength(2)
     expect(screen.getByText(/Custom html/i)).toBeInTheDocument()
   })

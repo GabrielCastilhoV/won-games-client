@@ -10,23 +10,19 @@ import Showcase from 'components/Showcase'
 import Base from 'layouts/Base'
 
 import * as S from './styles'
-import PaymentOptions, { PaymentOptionsProps } from 'components/PaymentOptions'
+import PaymentForm from 'components/PaymentForm'
 
 export type CartLayoutProps = {
   recommendedTitle: string
   recommendedGames: GameCardProps[]
   recommendedHighlight: HighlightProps
-} & CartListProps &
-  Pick<PaymentOptionsProps, 'cards'>
+} & CartListProps
 
 const CartLayout = ({
   recommendedTitle,
   recommendedGames,
-  recommendedHighlight,
-  cards
+  recommendedHighlight
 }: CartLayoutProps) => {
-  const handlePayment = () => ({})
-
   return (
     <Base>
       <Container>
@@ -37,7 +33,7 @@ const CartLayout = ({
         <S.Content>
           <CartList />
 
-          <PaymentOptions cards={cards} handlePayment={handlePayment} />
+          <PaymentForm />
         </S.Content>
 
         <Divider />

@@ -19,11 +19,6 @@ describe('<ProfileMenu />', () => {
       '/profile/me'
     )
 
-    expect(screen.getByRole('link', { name: /My cards/i })).toHaveAttribute(
-      'href',
-      '/profile/cards'
-    )
-
     expect(screen.getByRole('link', { name: /My orders/i })).toHaveAttribute(
       'href',
       '/profile/orders'
@@ -35,9 +30,9 @@ describe('<ProfileMenu />', () => {
   })
 
   it('should render the menu with an active link defined', () => {
-    render(<ProfileMenu activeLink="/profile/cards" />)
+    render(<ProfileMenu activeLink="/profile/orders" />)
 
-    expect(screen.getByRole('link', { name: /my cards/i })).toHaveStyle({
+    expect(screen.getByRole('link', { name: /my orders/i })).toHaveStyle({
       background: theme.colors.primary,
       color: theme.colors.white
     })

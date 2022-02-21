@@ -3,6 +3,8 @@ import {
   GetHome_banners,
   GetHome_sections_freeGames_highlight
 } from 'graphql/generated/GetHome'
+import { QueryWishlist_wishlists_games } from 'graphql/generated/QueryWishlist'
+
 import { formatPrice } from 'utils/formats'
 
 export const bannerMapper = (banners: GetHome_banners[]) => {
@@ -20,7 +22,9 @@ export const bannerMapper = (banners: GetHome_banners[]) => {
   }))
 }
 
-export const gamesMapper = (games: GetGames_games[] | null | undefined) => {
+export const gamesMapper = (
+  games: GetGames_games[] | QueryWishlist_wishlists_games[] | null | undefined
+) => {
   return games
     ? games.map((game) => ({
         id: game.id,

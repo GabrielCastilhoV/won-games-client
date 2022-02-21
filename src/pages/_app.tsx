@@ -10,6 +10,7 @@ import { useApollo } from 'utils/apollo'
 
 import GlobalStyles from 'styles/global'
 import theme from '../styles/theme'
+import { WishlistProvider } from 'hooks/use-wishlist'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const client = useApollo(pageProps.initialApolloState)
@@ -19,15 +20,17 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
           <CartProvider>
-            <GlobalStyles />
-            <NextNprogress
-              color="#F231A5"
-              startPosition={0.3}
-              stopDelayMs={200}
-              height={5}
-            />
+            <WishlistProvider>
+              <GlobalStyles />
+              <NextNprogress
+                color="#F231A5"
+                startPosition={0.3}
+                stopDelayMs={200}
+                height={5}
+              />
 
-            <Component {...pageProps} />
+              <Component {...pageProps} />
+            </WishlistProvider>
           </CartProvider>
         </ThemeProvider>
       </ApolloProvider>

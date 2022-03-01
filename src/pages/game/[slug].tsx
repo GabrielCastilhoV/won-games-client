@@ -14,6 +14,7 @@ import {
 import { GetRecommended } from 'graphql/generated/GetRecommended'
 import { GET_RECOMMENDED } from 'graphql/queries/recommended'
 import { gamesMapper, highlightMapper } from 'utils/mappers'
+import { getImageUrl } from 'utils/getImageUrl'
 
 import {
   GetUpcoming,
@@ -72,9 +73,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   >({ query: GET_UPCOMING, variables: { date: TODAY } })
 
   return {
+    revalidate: 60,
     props: {
-      revalidate: 60,
-      cover: `http://localhost:1337${game.cover?.src}`,
+      slug: params?.slug,
+      cover: `${getImageUrl(game.cover?.src)}`,
       gameInfo: {
         id: game.id,
         title: game.name,
@@ -82,7 +84,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         description: game.short_description
       },
       gallery: game.gallery.map((image) => ({
-        src: `http://localhost:1337${image.src}`,
+        src: `${getImageUrl(image.src)}`,
         label: image.label
       })),
       description: game.description,

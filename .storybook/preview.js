@@ -1,3 +1,5 @@
+import '../.jest/next-image.mock'
+
 import GlobalStyles from '../src/styles/global'
 import { ThemeProvider } from 'styled-components'
 import { CartContext, CartContextDefaultValues } from 'hooks/use-cart'
@@ -21,7 +23,7 @@ export const parameters = {
 
 export const decorators = [
   (Story, context) => (
-    <>
+    <ThemeProvider theme={theme}>
       <CartContext.Provider
         value={{
           ...CartContextDefaultValues,
@@ -32,6 +34,6 @@ export const decorators = [
         <GlobalStyles removeBg />
         <Story />
       </CartContext.Provider>
-    </>
+    </ThemeProvider>
   )
 ]

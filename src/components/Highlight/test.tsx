@@ -1,4 +1,5 @@
 import { render, screen } from 'utils/test-utils'
+
 import Highlight from '.'
 import * as S from './styles'
 
@@ -7,7 +8,7 @@ const props = {
   subtitle: 'Heading 2',
   backgroundImage: '/assets/img/red-dead-img.png',
   buttonLabel: 'Buy now',
-  buttonLink: '/highlight'
+  buttonLink: '/rdr2'
 }
 
 describe('<Highlight />', () => {
@@ -22,15 +23,15 @@ describe('<Highlight />', () => {
       screen.getByRole('heading', { name: /heading 2/i })
     ).toBeInTheDocument()
 
-    expect(screen.getByRole('link', { name: /Buy now/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /buy now/i })).toBeInTheDocument()
   })
 
   it('should render background image', () => {
-    const { container } = render(<Highlight {...props} />)
+    render(<Highlight {...props} />)
 
-    expect(container.firstChild).toHaveStyle({
-      backgroundImage: `url(${props.backgroundImage})`
-    })
+    expect(
+      screen.getByRole('img', { name: `${props.title} background` })
+    ).toHaveAttribute('src', `${props.backgroundImage}`)
   })
 
   it('should render float image', () => {
@@ -55,7 +56,7 @@ describe('<Highlight />', () => {
     })
   })
 
-  it('should render align left', () => {
+  it('should render align left when argument is passed', () => {
     const { container } = render(<Highlight {...props} alignment="left" />)
 
     expect(container.firstChild).toHaveStyleRule(

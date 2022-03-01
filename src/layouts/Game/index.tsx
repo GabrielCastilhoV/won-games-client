@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import { NextSeo } from 'next-seo'
+
 import Gallery, { GalleryImageProps } from 'components/Gallery'
 import { GameCardProps } from 'components/GameCard'
 import GameDetails, { GameDetailsProps } from 'components/GameDetails'
@@ -12,6 +15,7 @@ import Base from 'layouts/Base'
 import * as S from './styles'
 
 export type GameLayoutProps = {
+  slug?: string
   cover: string
   gameInfo: GameInfoProps
   gallery?: GalleryImageProps[]
@@ -23,7 +27,10 @@ export type GameLayoutProps = {
   recommendedGames: GameCardProps[]
 }
 
+const url = process.env.NEXT_PUBLIC_URL
+
 const GameLayout = ({
+  slug,
   cover,
   gameInfo,
   gallery,
@@ -35,7 +42,27 @@ const GameLayout = ({
   recommendedGames
 }: GameLayoutProps) => (
   <Base>
-    <S.Cover src={cover} role="image" aria-label="cover" />
+    <NextSeo
+      title={`${gameInfo.title} - Won Games`}
+      description={gameInfo.description}
+      canonical={`${url}/${slug}`}
+      openGraph={{
+        url: `${url}/${slug}`,
+        title: `${gameInfo.title} - Won Games`,
+        description: gameInfo.description,
+        images: [
+          {
+            url: cover,
+            alt: `${gameInfo.title}`
+          }
+        ]
+      }}
+    />
+
+    <S.Cover>
+      <Image src={cover} alt={gameInfo.title} layout="fill" />
+    </S.Cover>
+
     <S.Main>
       <S.SectionGameInfo>
         <GameInfo {...gameInfo} />

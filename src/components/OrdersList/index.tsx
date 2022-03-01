@@ -1,20 +1,30 @@
 import Empty from 'components/Empty'
-import GameItem, { GameItemProps } from 'components/GameItem'
+import GameItem, { GameItemProps, PaymentInfoProps } from 'components/GameItem'
 import Heading from 'components/Heading'
 import * as S from './styles'
 
-export type OrdersListProps = {
-  items?: GameItemProps[]
+type OrdersProps = {
+  id: string
+  paymentInfo: PaymentInfoProps
+  games: GameItemProps[]
 }
 
-const OrdersList = ({ items }: OrdersListProps) => (
+export type OrdersListProps = {
+  items?: OrdersProps[]
+}
+
+const OrdersList = ({ items = [] }: OrdersListProps) => (
   <S.Wrapper>
     <Heading lineBottom color="black" size="small">
       My orders
     </Heading>
 
     {items?.length ? (
-      items?.map((item) => <GameItem key={item.downloadLink} {...item} />)
+      items?.map((order) => {
+        return order.games.map((game) => (
+          <GameItem key={game.id} {...game} paymentInfo={order.paymentInfo} />
+        ))
+      })
     ) : (
       <Empty
         title="You have no orders yet"

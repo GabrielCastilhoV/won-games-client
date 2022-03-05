@@ -16,7 +16,7 @@ const Auth = ({ title, children }: AuthProps) => (
   <S.Wrapper>
     <S.BannerBlock>
       <Image
-        src="/img/auth-bg.jpg"
+        src="/assets/img/auth-bg.jpg"
         alt="Won Games Auth Page"
         layout="fill"
         objectFit="cover"

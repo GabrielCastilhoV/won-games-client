@@ -11,6 +11,12 @@ type FieldsAttributes = {
   name: string | number
 }
 
+type User = {
+  username: string
+  email: string
+  password: string
+}
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -48,5 +54,29 @@ declare namespace Cypress {
      * @example cy.shouldBeGreaterThan(100)
      */
     shouldBeGreaterThan(value: number): Chainable<Element>
+
+    /**
+     * Custom command to sign up
+     * @example cy.signUp(user)
+     */
+    signUp(user: User): Chainable<Element>
+
+    /**
+     * Custom command to sign in
+     * @example cy.signIn()
+     */
+    signIn(email?: string, password?: string): Chainable<Element>
+
+    /**
+     * Custom command to add game to cart by index
+     * @example cy.addToCartByIndex(1)
+     */
+    addToCartByIndex(value: number): Chainable<Element>
+
+    /**
+     * Custom command to remove game from cart by index
+     * @example cy.removeFromCartByIndex(2)
+     */
+    removeFromCartByIndex(value: number): Chainable<Element>
   }
 }

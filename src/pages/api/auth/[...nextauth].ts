@@ -1,4 +1,5 @@
-import NextAuth, { User, Session } from 'next-auth'
+import NextAuth, { User } from 'next-auth'
+import { Session } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 import Providers from 'next-auth/providers'
 import { NextApiRequest, NextApiResponse } from 'next-auth/internals/utils'

@@ -35,7 +35,10 @@ const ProfileMenu = ({ activeLink }: ProfileMenuProps) => {
       <S.Link
         role="button"
         onClick={async () => {
-          const data = await signOut({ redirect: false, callbackUrl: '/' })
+          const data = await signOut({
+            redirect: false,
+            callbackUrl: process.env.NEXT_PUBLIC_URL
+          })
           push(data.url)
         }}
         title="Sign out"

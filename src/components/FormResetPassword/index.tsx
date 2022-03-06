@@ -59,7 +59,7 @@ const FormResetPassword = () => {
       signIn('credentials', {
         email: data.user.email,
         password: values.password,
-        callbackUrl: '/'
+        callbackUrl: process.env.NEXT_PUBLIC_URL
       })
     }
   }
